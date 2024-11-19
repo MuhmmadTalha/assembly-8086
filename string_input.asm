@@ -1,3 +1,5 @@
+;: INPUT: Input as string terminated by $ and save it in memory (Use function 1 of INT
+;21H, loop to implement the operation, and register indirect addressing mode to address the memory).
 .model
 .stack 100h
 .data
