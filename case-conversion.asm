@@ -11,42 +11,63 @@ main proc
     mov ax,@data
     mov ds,ax      
     
-    mov bx,0
+    mov bx,0  
+    mov si,0
       
 inp:
     mov ah,01
     int 21h
     
     cmp al, '$'
-    je case1
+    je reset
     
     mov buffer [bx],al
     inc bx
     jmp inp  
        
-  
     
-case1:
+reset:
+    mov bx,0  
+    mov si,0
+    
+case1:  
+    
+    mov al, buffer[bx]
+    cmp al, '$'
+    je display
     ;Case 1 - lower to upper
     
-    cmp al, 'A'
-    jmp case2
+    cmp al, 'a'
+    jl case2
     
-    cmp al,'Z'
-    jmp case2    
+    cmp al,'z'
+    jg case2   
  
     sub al,20h
+     
+    jmp store
     
     
-case2:
-    cmp al, 'a'
-    add al,20h
-    cmp al , 'z'
-    add al,20h
+case2:  ; upper to lower 
+    cmp al, 'A'
+    jl store
+   
+    cmp al , 'Z'  
+    jg display
+    
+    add al,20h 
+     
+    jmp store
 
-return:
-    mov result[bx],al
-    inc bx 
+store:   
+    ;Stores in Result Variable
+    mov result[si],al
+    inc si
+    inc bx
+    jmp case1                    
+    
+display:    
+    ;Displays on screen
     mov dx,offset result
     mov ah,09h
     int 21h
