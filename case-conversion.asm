@@ -1,3 +1,6 @@
+;: CASE CONVERSION: Convert the saved string’s case (capital ? small) and save the string with case
+;conversion. (Use logical operation with loop, use based addressing mode to address the memory
+;locations).
 .model
 .stack 100h
 .data
