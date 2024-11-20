@@ -53,7 +53,7 @@ case2:  ; upper to lower
     jl store
    
     cmp al , 'Z'  
-    jg display
+    jg store
     
     add al,20h 
      
